@@ -1,6 +1,5 @@
 <?php
-// includes/header.php - Cabecera y menú comunes a las páginas privadas.
-// Antes de incluirlo, la página define: $titulo y $activo ('inicio' | 'productos').
+
 $titulo = $titulo ?? 'TecnoStock';
 $activo = $activo ?? '';
 $flash  = tomar_flash();

@@ -1,6 +1,5 @@
 <?php
-// includes/validaciones.php - Validación de datos de producto (lado servidor).
-// Devuelve [datos, errores]. Los datos quedan como texto limpio para volver a mostrarlos.
+
 function validar_producto(array $in, bool $esNuevo): array {
     $d = [
         'codigo'        => strtoupper(trim($in['codigo'] ?? '')),

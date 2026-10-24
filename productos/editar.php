@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!$errores) {
             try {
-                // Nota: stock_actual NO se modifica aquí; solo cambia con movimientos.
+                
                 $upd = $pdo->prepare(
                     'UPDATE producto
                      SET codigo = :codigo, nombre = :nombre, descripcion = :descripcion,

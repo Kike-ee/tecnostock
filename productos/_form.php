@@ -1,6 +1,5 @@
 <?php
-// Formulario compartido por crear.php y editar.php.
-// Espera: $datos, $errores, $categorias, $esNuevo y (si edita) $stockActual.
+
 function cls(array $errores, string $campo): string {
     return isset($errores[$campo]) ? ' is-invalid' : '';
 }

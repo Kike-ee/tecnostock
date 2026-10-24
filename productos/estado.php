@@ -3,7 +3,7 @@ require __DIR__ . '/../config/db.php';
 require __DIR__ . '/../includes/auth.php';
 requiere_login();
 
-// Solo acepta POST con token válido (un enlace GET no puede cambiar datos).
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_valido($_POST['csrf'] ?? null)) {
     $id     = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
     $estado = ($_POST['estado'] ?? '') === '1' ? 1 : 0;

@@ -1,9 +1,8 @@
 <?php
 require __DIR__ . '/config/db.php';
 require __DIR__ . '/includes/auth.php';
-requiere_login();   // si no hay sesión, redirige al login
+requiere_login();   
 
-// Productos activos con stock actual menor que el mínimo (vista de la base)
 $stockBajo = $pdo->query('SELECT codigo, nombre, stock_actual, stock_minimo, categoria FROM v_stock_bajo')
                  ->fetchAll();
 

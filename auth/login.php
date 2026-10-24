@@ -3,13 +3,13 @@ require __DIR__ . '/../config/db.php';
 require __DIR__ . '/../includes/auth.php';
 iniciar_sesion();
 
-// Si ya inició sesión, no tiene sentido ver el login.
+
 if (!empty($_SESSION['id_usuario'])) {
     header('Location: ' . BASE_URL . '/index.php');
     exit;
 }
 
-// Token anti-CSRF: se genera una vez por sesión y viaja oculto en el formulario.
+
 if (empty($_SESSION['csrf'])) {
     $_SESSION['csrf'] = bin2hex(random_bytes(32));
 }
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!hash_equals($_SESSION['csrf'], $token)) {
         $error = 'Sesión inválida. Recarga la página e inténtalo de nuevo.';
     } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL) || $clave === '') {
-        // Validación del servidor (repite la que hace JavaScript)
+        
         $error = 'Ingresa un correo válido y tu contraseña.';
     } else {
         $stmt = $pdo->prepare(
@@ -36,13 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $usuario = $stmt->fetch();
 
         if ($usuario && password_verify($clave, $usuario['clave'])) {
-            session_regenerate_id(true);   // nuevo ID de sesión tras autenticarse
+            session_regenerate_id(true);   
             $_SESSION['id_usuario'] = (int) $usuario['id_usuario'];
             $_SESSION['nombre']     = $usuario['nombre'];
             header('Location: ' . BASE_URL . '/index.php');
             exit;
         }
-        // Mismo mensaje si falla el correo o la clave: no revela cuál estaba mal.
+        
         $error = 'Correo o contraseña incorrectos.';
     }
 }

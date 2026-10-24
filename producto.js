@@ -1,7 +1,7 @@
-// Validación del formulario de producto en el navegador (el servidor la repite en PHP).
+
 const form = document.getElementById('form-producto');
 
-// Cada regla devuelve un mensaje de error, o '' si el campo está bien.
+
 const reglas = {
     codigo: v => /^[A-Za-z0-9-]{3,30}$/.test(v.trim())
         ? '' : 'Usa entre 3 y 30 caracteres: letras, números y guiones.',
@@ -21,7 +21,7 @@ const reglas = {
 
 function validarCampo(nombre) {
     const input = form.elements[nombre];
-    if (!input || !reglas[nombre]) return true;       // el campo no existe en este formulario
+    if (!input || !reglas[nombre]) return true;       
     const mensaje = reglas[nombre](input.value);
     const aviso = input.parentElement.querySelector('.invalid-feedback');
     input.classList.toggle('is-invalid', mensaje !== '');
@@ -35,13 +35,13 @@ form.addEventListener('submit', function (evento) {
         if (!validarCampo(nombre)) valido = false;
     });
     if (!valido) {
-        evento.preventDefault();                       // no envía el formulario
+        evento.preventDefault();                       
         const primero = form.querySelector('.is-invalid');
         if (primero) primero.focus();
     }
 });
 
-// Al corregir un campo, el aviso se limpia al instante.
+
 Object.keys(reglas).forEach(nombre => {
     const input = form.elements[nombre];
     if (input) input.addEventListener('input', () => validarCampo(nombre));

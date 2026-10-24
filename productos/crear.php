@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         [$datos, $errores] = validar_producto($_POST, true);
 
-        // La categoría debe existir y estar activa
+     
         if (!$errores) {
             $q = $pdo->prepare('SELECT 1 FROM categoria WHERE id_categoria = :id AND estado = 1');
             $q->execute([':id' => (int) $datos['id_categoria']]);
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!$errores) {
             try {
-                // Transacción: o se guarda todo (producto + movimiento) o no se guarda nada.
+                
                 $pdo->beginTransaction();
 
                 $ins = $pdo->prepare(
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($pdo->inTransaction()) {
                     $pdo->rollBack();
                 }
-                if (($e->errorInfo[1] ?? 0) == 1062) {          // clave UNIQUE repetida
+                if (($e->errorInfo[1] ?? 0) == 1062) {          
                     $errores['codigo'] = 'Ya existe un producto con ese código.';
                 } else {
                     error_log($e->getMessage());

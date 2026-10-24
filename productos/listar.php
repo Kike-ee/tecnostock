@@ -3,10 +3,10 @@ require __DIR__ . '/../config/db.php';
 require __DIR__ . '/../includes/auth.php';
 requiere_login();
 
-// Filtros que vienen por la URL (GET)
+
 $q         = trim($_GET['q'] ?? '');
 $categoria = filter_input(INPUT_GET, 'categoria', FILTER_VALIDATE_INT) ?: 0;
-$estado    = $_GET['estado'] ?? '1';                    // '1' activos, '0' inactivos, 'todos'
+$estado    = $_GET['estado'] ?? '1';                   
 if (!in_array($estado, ['1', '0', 'todos'], true)) {
     $estado = '1';
 }
@@ -20,7 +20,7 @@ $params = [];
 
 if ($q !== '') {
     $sql .= ' AND (p.codigo LIKE :q1 OR p.nombre LIKE :q2)';
-    $like = '%' . addcslashes($q, '%_\\') . '%';        // los % y _ escritos se tratan como texto
+    $like = '%' . addcslashes($q, '%_\\') . '%';        
     $params[':q1'] = $like;
     $params[':q2'] = $like;
 }

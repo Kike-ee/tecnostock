@@ -1,16 +1,16 @@
 <?php
-// config/db.php - Conexión a la base de datos con PDO
+
 $host    = 'localhost';
 $db      = 'tecnostock';
 $user    = 'root';
-$pass    = '';          // XAMPP trae root sin contraseña
+$pass    = '';         
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $opciones = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,   // errores como excepciones
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,         // filas como arreglos asociativos
-    PDO::ATTR_EMULATE_PREPARES   => false,                    // consultas preparadas reales
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,   
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,         
+    PDO::ATTR_EMULATE_PREPARES   => false,                    
 ];
 
 try {

@@ -1,18 +1,13 @@
--- =====================================================
 -- TecnoStock - Script de base de datos
 -- Motor: MySQL / MariaDB (XAMPP)
--- Se puede ejecutar completo las veces que quieras:
--- borra y vuelve a crear todo desde cero.
--- =====================================================
 
--- PASO 1: Crear la base de datos
 DROP DATABASE IF EXISTS tecnostock;
 CREATE DATABASE tecnostock
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 USE tecnostock;
 
--- PASO 2: Tabla usuario
+
 CREATE TABLE usuario (
     id_usuario  INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nombre      VARCHAR(100) NOT NULL,
@@ -23,7 +18,7 @@ CREATE TABLE usuario (
     CONSTRAINT uq_usuario_correo UNIQUE (correo)
 ) ENGINE=InnoDB;
 
--- PASO 3: Tabla categoria
+
 CREATE TABLE categoria (
     id_categoria INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nombre       VARCHAR(80)  NOT NULL,
@@ -33,7 +28,7 @@ CREATE TABLE categoria (
     CONSTRAINT uq_categoria_nombre UNIQUE (nombre)
 ) ENGINE=InnoDB;
 
--- PASO 4: Tabla producto
+
 CREATE TABLE producto (
     id_producto  INT UNSIGNED  NOT NULL AUTO_INCREMENT,
     codigo       VARCHAR(30)   NOT NULL,
@@ -55,7 +50,7 @@ CREATE TABLE producto (
     INDEX idx_producto_nombre (nombre)
 ) ENGINE=InnoDB;
 
--- PASO 5: Tabla movimiento
+
 CREATE TABLE movimiento (
     id_movimiento INT UNSIGNED NOT NULL AUTO_INCREMENT,
     fecha_hora    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -76,7 +71,7 @@ CREATE TABLE movimiento (
     INDEX idx_movimiento_fecha (fecha_hora)
 ) ENGINE=InnoDB;
 
--- PASO 6: Vista para la alerta de stock bajo
+
 CREATE VIEW v_stock_bajo AS
 SELECT p.id_producto, p.codigo, p.nombre, p.stock_actual, p.stock_minimo,
        c.nombre AS categoria
@@ -85,11 +80,11 @@ JOIN categoria c ON c.id_categoria = p.id_categoria
 WHERE p.estado = 1
   AND p.stock_actual < p.stock_minimo;
 
--- PASO 7: Datos de prueba
--- Usuario: encargado@tecnostock.cl  /  Clave: admin123
+-- Prueba
+-- Usuario rike  /  Clave: rike2212
 INSERT INTO usuario (nombre, correo, clave) VALUES
-('Encargado de Inventario', 'encargado@tecnostock.cl',
- '$2y$10$1ZU4lCNDezQ98wTNLpQCX.5Vvvw7LvfmrSlQfC8V1LRwHqAHe.wla');
+('Encargado de Inventario', 'rike',
+ '$2y$10$j4u7OqGwcuYqDYVdS/sJT.Zlw82lk4qw3M6CIncl2624tzGuhEgJS');
 
 INSERT INTO categoria (nombre, descripcion) VALUES
 ('Periféricos', 'Mouse, teclados y webcams'),
@@ -107,7 +102,7 @@ INSERT INTO producto
 ('ACC-006', 'Pendrive 64GB',      'Pendrive USB 3.0 de 64GB',        7990, 30, 10, 1, 4),
 ('ACC-007', 'Webcam HD',          'Producto descontinuado',         19990,  2,  3, 0, 1);
 
--- Movimientos coherentes con el stock actual de cada producto
+
 INSERT INTO movimiento (fecha_hora, tipo, cantidad, observacion, id_producto, id_usuario) VALUES
 ('2026-10-01 09:00:00', 'ENTRADA', 30, 'Compra inicial',      1, 1),
 ('2026-10-05 15:30:00', 'SALIDA',   5, 'Venta mostrador',     1, 1),
