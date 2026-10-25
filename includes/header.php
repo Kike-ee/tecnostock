@@ -23,6 +23,9 @@ $flash  = tomar_flash();
             <li class="nav-item">
                 <a class="nav-link<?= $activo === 'productos' ? ' active' : '' ?>" href="<?= BASE_URL ?>/productos/listar.php">Productos</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link<?= $activo === 'movimientos' ? ' active' : '' ?>" href="<?= BASE_URL ?>/movimientos/listar.php">Movimientos</a>
+            </li>
         </ul>
         <div class="d-flex align-items-center text-white">
             <span class="me-3 d-none d-sm-inline">Hola, <?= e($_SESSION['nombre'] ?? '') ?></span>
@@ -32,7 +35,7 @@ $flash  = tomar_flash();
 </nav>
 <main class="container py-4">
 <?php if ($flash): ?>
-    <div class="alert alert-<?= e($flash['tipo']) ?> alert-dismissible" role="alert">
+    <div class="alert alert-<?= e($flash['tipo']) ?> " role="alert">
         <?= e($flash['mensaje']) ?>
     </div>
 <?php endif; ?>

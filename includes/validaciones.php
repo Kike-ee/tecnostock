@@ -35,3 +35,27 @@ function validar_producto(array $in, bool $esNuevo): array {
     }
     return [$d, $err];
 }
+
+function validar_movimiento(array $in): array {
+    $d = [
+        'id_producto' => trim($in['id_producto'] ?? ''),
+        'tipo'        => strtoupper(trim($in['tipo'] ?? '')),
+        'cantidad'    => trim($in['cantidad'] ?? ''),
+        'observacion' => trim($in['observacion'] ?? ''),
+    ];
+    $err = [];
+
+    if (filter_var($d['id_producto'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) === false) {
+        $err['id_producto'] = 'Selecciona un producto.';
+    }
+    if (!in_array($d['tipo'], ['ENTRADA', 'SALIDA'], true)) {
+        $err['tipo'] = 'Selecciona el tipo de movimiento.';
+    }
+    if (filter_var($d['cantidad'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 1000000]]) === false) {
+        $err['cantidad'] = 'La cantidad debe ser un entero entre 1 y 1.000.000.';
+    }
+    if (mb_strlen($d['observacion']) > 255) {
+        $err['observacion'] = 'La observación admite hasta 255 caracteres.';
+    }
+    return [$d, $err];
+}

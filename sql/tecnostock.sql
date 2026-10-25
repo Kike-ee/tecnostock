@@ -81,9 +81,9 @@ WHERE p.estado = 1
   AND p.stock_actual < p.stock_minimo;
 
 -- Prueba
--- Usuario rike  /  Clave: rike2212
+-- Usuario fl4gas@gmail.com  /  Clave: rike2212
 INSERT INTO usuario (nombre, correo, clave) VALUES
-('Encargado de Inventario', 'rike',
+('Encargado de Inventario', 'fl4gas@gmail.com',
  '$2y$10$j4u7OqGwcuYqDYVdS/sJT.Zlw82lk4qw3M6CIncl2624tzGuhEgJS');
 
 INSERT INTO categoria (nombre, descripcion) VALUES

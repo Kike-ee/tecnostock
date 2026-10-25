@@ -81,7 +81,7 @@ require __DIR__ . '/../includes/header.php';
             <tr>
                 <th>Código</th><th>Producto</th><th>Categoría</th>
                 <th class="text-end">Precio</th><th class="text-end">Stock</th><th class="text-end">Mínimo</th>
-                <th>Estado</th><th style="width: 190px;">Acciones</th>
+                <th>Estado</th><th style="width: 290px;">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -108,6 +108,10 @@ require __DIR__ . '/../includes/header.php';
                 <td>
                     <a class="btn btn-sm btn-outline-primary"
                        href="<?= BASE_URL ?>/productos/editar.php?id=<?= (int) $p['id_producto'] ?>">Editar</a>
+                    <?php if ((int) $p['estado'] === 1): ?>
+                        <a class="btn btn-sm btn-outline-secondary"
+                           href="<?= BASE_URL ?>/movimientos/registrar.php?id_producto=<?= (int) $p['id_producto'] ?>">Movimiento</a>
+                    <?php endif; ?>
                     <form method="post" action="<?= BASE_URL ?>/productos/estado.php" class="d-inline"
                           onsubmit="return confirm('<?= (int) $p['estado'] === 1 ? '¿Desactivar' : '¿Reactivar' ?> este producto?');">
                         <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
